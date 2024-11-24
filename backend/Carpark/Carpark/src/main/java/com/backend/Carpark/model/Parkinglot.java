@@ -36,7 +36,7 @@ public class Parkinglot {
         return pid;
     }
 
-    public void setAccount_id(Integer pid) {
+    public void setPid(Integer pid) {
         this.pid = pid;
     }
 
