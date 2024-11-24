@@ -11,7 +11,7 @@ public class Account {
 
     @Id
     @Column(name = "account_id")
-    private String account_id;
+    private Integer Id;
     @Column(name = "username")
     private String username;
     @Column(name = "password_hash")
@@ -26,12 +26,12 @@ public class Account {
     private String created_at;
 
     // Getters and setters
-    public String getId() {
-        return account_id;
+    public Integer getId() {
+        return Id;
     }
 
-    public void setId(String id) {
-        this.account_id = id;
+    public void setAccount_id(Integer Id) {
+        this.Id = Id;
     }
 
     public String getUsername() {
