@@ -3,6 +3,8 @@ package com.backend.Carpark.controller;
 import com.backend.Carpark.model.Account;
 import com.backend.Carpark.service.AccountService;
 import com.backend.Carpark.model.LoginRequest;
+import com.backend.Carpark.model.Parkinglot;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -73,6 +75,16 @@ public class AccountController {
         if (user.isPresent()) {
             accountService.deleteUser(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/{id}/parkinglots")
+    public ResponseEntity<List<Parkinglot>> getParkinglotsById(@PathVariable Integer id) {
+        Optional<List<Parkinglot>> parkinglots = accountService.getParkinglotByOwnerId(id);
+        if (parkinglots.isPresent()) {
+            return new ResponseEntity<>(parkinglots.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

@@ -15,13 +15,13 @@ const LoginForm = () => {
       const { role } = user;
 
       if (role === "USER") {
-        console.log(user);
+        // console.log(user);
         navigate("/dashboard/user");
       } else if (role === "OWNER") {
-        console.log(user);
+        // console.log(user);
         navigate("/dashboard/owner");
       } else if (role === "ADMIN") {
-        console.log(user);
+        // console.log(user);
         navigate("/dashboard/admin");
       }
     } catch (err) {

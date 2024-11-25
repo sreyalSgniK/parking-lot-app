@@ -1,6 +1,5 @@
 package com.backend.Carpark.service;
 
-
 import com.backend.Carpark.model.Parkinglot;
 import com.backend.Carpark.repository.ParkinglotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +14,14 @@ public class ParkinglotService {
     @Autowired
     private ParkinglotRepository parkinglotRepository;
 
-    // Create or update a user
     public Parkinglot saveParkinglot(Parkinglot parkinglot) {
-        return parkinglotRepository.save(parkinglot);
+        try {
+            return parkinglotRepository.save(parkinglot);
+        } catch (Exception e) {
+            // Log the error to find out what's going wrong
+            e.printStackTrace();
+            throw new RuntimeException("Error saving parking lot", e);
+        }
     }
 
     // Get all users
