@@ -1,0 +1,90 @@
+# -----------------
+# FRONTEND (React)
+# -----------------
+
+# Node modules
+node_modules/
+
+# Build output
+build/
+dist/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Parcel-bundler cache
+.cache/
+
+# MacOS files
+.DS_Store
+
+# -----------------
+# BACKEND (Spring Boot)
+# -----------------
+
+# Maven/Gradle directories
+.mvn/
+.gradle/
+
+# Target directory
+target/
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# Compiled files
+*.class
+
+# Environment variables
+*.env
+
+# Database
+*.h2.db
+*.mv.db
+*.db
+*.sql
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# -----------------
+# COMMON/IDE FILES
+# -----------------
+
+# Visual Studio Code
+.vscode/
+
+# Thumbnails and indexing files
+Thumbs.db
+ehthumbs.db
+
+# JetBrains user-specific
+*.swp
+*.swo
+*.bak
+
+# Operating System Files
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+*.lnk
+desktop.ini
+$RECYCLE.BIN/
