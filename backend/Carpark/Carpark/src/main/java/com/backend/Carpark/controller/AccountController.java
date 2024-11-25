@@ -11,9 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-
-
-@RequestMapping("/users")
+@RequestMapping("/accounts")
 public class AccountController {
 
     @Autowired
@@ -26,11 +24,6 @@ public class AccountController {
         return new ResponseEntity<>(savedAccount, HttpStatus.CREATED);
     }
 
-//    @GetMapping
-//    public String checkAccount(String username, String password) {
-//        return accountService.checkAccount(username, password);
-//    }
-
     // Get all users
     @GetMapping
     public ResponseEntity<List<Account>> getAllAccount() {
@@ -40,8 +33,8 @@ public class AccountController {
 
     // Get user by ID
     @GetMapping("/{id}")
-    public ResponseEntity<Account> getUserById(@PathVariable String account_id) {
-        Optional<Account> user = accountService.getUserById(account_id);
+    public ResponseEntity<Account> getUserById(@PathVariable Integer id) {
+        Optional<Account> user = accountService.getAccountById(id);
         if (user.isPresent()) {
             return new ResponseEntity<>(user.get(), HttpStatus.OK);
         } else {
@@ -51,11 +44,11 @@ public class AccountController {
 
     // Update an existing user
     @PutMapping("/{id}")
-    public ResponseEntity<Account> updateUser(@PathVariable String account_id, @RequestBody Account user) {
-        Optional<Account> existingUser = accountService.getUserById(account_id);
+    public ResponseEntity<Account> updateUser(@PathVariable Integer id, @RequestBody Account account) {
+        Optional<Account> existingUser = accountService.getAccountById(id);
         if (existingUser.isPresent()) {
-            user.setId(account_id);  // Ensure the user ID is set to the path variable ID
-            Account updatedUser = accountService.saveAccount(user);
+            account.setAccount_id(id);  // Ensure the user ID is set to the path variable ID
+            Account updatedUser = accountService.saveAccount(account);
             return new ResponseEntity<>(updatedUser, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -64,10 +57,10 @@ public class AccountController {
 
     // Delete a user by ID
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable String account_id) {
-        Optional<Account> user = accountService.getUserById(account_id);
+    public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
+        Optional<Account> user = accountService.getAccountById(id);
         if (user.isPresent()) {
-            accountService.deleteUser(account_id);
+            accountService.deleteUser(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
