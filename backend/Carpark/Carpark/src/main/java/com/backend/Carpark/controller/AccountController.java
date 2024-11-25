@@ -2,6 +2,7 @@ package com.backend.Carpark.controller;
 
 import com.backend.Carpark.model.Account;
 import com.backend.Carpark.service.AccountService;
+import com.backend.Carpark.model.LoginRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,16 @@ public class AccountController {
 
     @Autowired
     private AccountService accountService;
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+
+        System.out.println("LoginRequest: " + loginRequest);
+
+        System.out.println("Username: " + loginRequest.getUsername());
+        System.out.println("Password: " + loginRequest.getPassword());
+        return accountService.authenticateUser(loginRequest);
+    }
 
     // Create a new user or update an existing one
     @PostMapping
@@ -47,7 +58,7 @@ public class AccountController {
     public ResponseEntity<Account> updateUser(@PathVariable Integer id, @RequestBody Account account) {
         Optional<Account> existingUser = accountService.getAccountById(id);
         if (existingUser.isPresent()) {
-            account.setAccount_id(id);  // Ensure the user ID is set to the path variable ID
+            account.setAccount_id(id); // Ensure the user ID is set to the path variable ID
             Account updatedUser = accountService.saveAccount(account);
             return new ResponseEntity<>(updatedUser, HttpStatus.OK);
         } else {

@@ -14,8 +14,8 @@ public class Account {
     private Integer Id;
     @Column(name = "username")
     private String username;
-    @Column(name = "password_hash")
-    private String password_hash;
+    @Column(name = "password")
+    private String password;
     @Column(name = "email")
     private String email;
     @Column(name = "phone")
@@ -42,12 +42,12 @@ public class Account {
         this.username = username;
     }
 
-    public String getPassword_hash() {
-        return password_hash;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassword_hash(String password_hash) {
-        this.password_hash = password_hash;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {

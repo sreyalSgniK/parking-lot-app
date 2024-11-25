@@ -10,7 +10,7 @@ export const saveUserToCookie = (user) => {
 
 export const login = async (username, password) => {
   try {
-    const response = await axios.post(`${API_URL}/auth/login`, {
+    const response = await axios.post(`${API_URL}/accounts/login`, {
       username,
       password,
     }); // This ensures POST request
@@ -23,7 +23,7 @@ export const login = async (username, password) => {
 };
 
 export const register = async (userData) => {
-  return await axios.post(`${API_URL}/auth/register`, userData);
+  return await axios.post(`${API_URL}/accounts`, userData);
 };
 
 export const logout = () => {

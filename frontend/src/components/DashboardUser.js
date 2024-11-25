@@ -11,7 +11,7 @@ const DashboardUser = () => {
   useEffect(() => {
     // Fetch parking lot data from the backend
     axios
-      .get("http://localhost:8080/parking-lots")
+      .get("http://localhost:8080/parkinglots")
       .then((response) => {
         setParkingLots(response.data); // Set the parking lots in state
       })
@@ -83,11 +83,11 @@ const DashboardUser = () => {
             <p>No parking lots available.</p>
           ) : (
             parkingLots.map((lot) => (
-              <div key={lot.parkingLotId} className="parking-lot-card">
-                <h3>{lot.name}</h3>
+              <div key={lot.id} className="parking-lot-card">
+                <h3>{lot.pname}</h3>
                 <p>{lot.location}</p>
                 <Link
-                  to={`/parking-lot/${lot.parkingLotId}`}
+                  to={`/parking-lot/${lot.id}`}
                   className="view-details-link"
                 >
                   View Details

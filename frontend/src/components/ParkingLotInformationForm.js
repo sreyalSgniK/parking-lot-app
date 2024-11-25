@@ -11,7 +11,7 @@ const ParkingLotInformationForm = () => {
   useEffect(() => {
     // Fetch parking lot details from the backend
     axios
-      .get(`http://localhost:8080/parking-lots/${id}`)
+      .get(`http://localhost:8080/parkinglots/${id}`)
       .then((response) => {
         setParkingLot(response.data);
       })
@@ -41,18 +41,18 @@ const ParkingLotInformationForm = () => {
   return (
     <div className="parking-lot-container">
       <div className="parking-lot-card">
-        <h1>{parkingLot.name}</h1>
+        <h1>{parkingLot.pname}</h1>
         <p>
           <strong>Location:</strong> {parkingLot.location}
         </p>
         <p>
-          <strong>Total Slots:</strong> {parkingLot.totalSlots}
+          <strong>Total Slots:</strong> {parkingLot.total}
         </p>
         <p>
-          <strong>Available Slots:</strong> {parkingLot.availableSlots}
+          <strong>Available Slots:</strong> {parkingLot.available}
         </p>
         <p>
-          <strong>Price Per Hour:</strong> {parkingLot.pricePerHour} VND
+          <strong>Price Per Hour:</strong> {parkingLot.price} VND
         </p>
         <p>
           <strong>Description:</strong> {parkingLot.description}

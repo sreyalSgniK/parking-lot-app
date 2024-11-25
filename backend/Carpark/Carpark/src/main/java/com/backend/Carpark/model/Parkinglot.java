@@ -8,7 +8,7 @@ import jakarta.persistence.Table;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "parkinglot")
+@Table(name = "parking_lot")
 public class Parkinglot {
 
     @Id
@@ -52,7 +52,7 @@ public class Parkinglot {
         return ownerId;
     }
 
-    public void setPassword_hash(Integer ownerId) {
+    public void setOwnerId(Integer ownerId) {
         this.ownerId = ownerId;
     }
 

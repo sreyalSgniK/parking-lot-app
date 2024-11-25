@@ -1,8 +1,10 @@
 package com.backend.Carpark.service;
 
 import com.backend.Carpark.model.Account;
+import com.backend.Carpark.model.LoginRequest;
 import com.backend.Carpark.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,5 +30,15 @@ public class AccountService {
 
     public void deleteUser(Integer account_id) {
         accountRepository.deleteById(account_id);
+    }
+
+    public ResponseEntity<?> authenticateUser(LoginRequest loginRequest) {
+        Optional<Account> account = accountRepository.findByUsername(loginRequest.getUsername());
+
+        if (account.isPresent() && account.get().getPassword().equals(loginRequest.getPassword())) {
+            return ResponseEntity.ok(account.get());
+        }
+
+        return ResponseEntity.status(401).body("Invalid credentials");
     }
 }
