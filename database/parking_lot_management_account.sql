@@ -24,12 +24,13 @@ DROP TABLE IF EXISTS `account`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `account` (
   `account_id` int NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) NOT NULL,
-  `password_hash` varchar(255) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `phone` varchar(15) NOT NULL,
-  `role` enum('user','owner','admin') NOT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `role` enum('ADMIN','OWNER','USER') DEFAULT NULL,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `suspended` bit(1) DEFAULT NULL,
   PRIMARY KEY (`account_id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
@@ -42,7 +43,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES (1,'doviethung123','password','doviethung@gmail.com','0123456789','admin','2024-11-24 20:31:47'),(2,'nguyenvana','password','nguyenvana@gmail.com','0154324131','user','2024-11-24 20:33:20'),(3,'nguyenducthanh2','password','nguyenducthanh2@gmail.com','0154324123','owner','2024-11-24 20:34:05');
+INSERT INTO `account` VALUES (1,'doviethung123','password','doviethung@gmail.com','0123456789','USER','2024-11-24 20:31:47',NULL),(2,'nguyenvana','password','nguyenvana@gmail.com','0154324131','ADMIN','2024-11-24 20:33:20',NULL),(3,'nguyenducthanh2','password','nguyenducthanh2@gmail.com','0154324123','OWNER','2024-11-24 20:34:05',NULL);
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-24 21:00:28
+-- Dump completed on 2024-11-25 17:45:03

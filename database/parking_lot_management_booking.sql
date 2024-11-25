@@ -35,7 +35,7 @@ CREATE TABLE `booking` (
   KEY `user_id` (`user_id`),
   KEY `parking_lot_id` (`parking_lot_id`),
   CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `account` (`account_id`),
-  CONSTRAINT `booking_ibfk_2` FOREIGN KEY (`parking_lot_id`) REFERENCES `parkinglot` (`parking_lot_id`) ON DELETE CASCADE
+  CONSTRAINT `booking_ibfk_2` FOREIGN KEY (`parking_lot_id`) REFERENCES `parking_lot` (`parking_lot_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -58,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-24 21:00:28
+-- Dump completed on 2024-11-25 17:45:03

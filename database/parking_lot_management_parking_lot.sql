@@ -16,36 +16,36 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `parkinglot`
+-- Table structure for table `parking_lot`
 --
 
-DROP TABLE IF EXISTS `parkinglot`;
+DROP TABLE IF EXISTS `parking_lot`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `parkinglot` (
+CREATE TABLE `parking_lot` (
   `parking_lot_id` int NOT NULL AUTO_INCREMENT,
   `owner_id` int NOT NULL,
-  `name` varchar(100) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
   `location` varchar(255) NOT NULL,
   `total_slots` int NOT NULL,
   `available_slots` int NOT NULL,
-  `price_per_hour` decimal(10,2) NOT NULL,
-  `description` text,
+  `price_per_hour` double DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`parking_lot_id`),
   KEY `owner_id` (`owner_id`),
-  CONSTRAINT `parkinglot_ibfk_1` FOREIGN KEY (`owner_id`) REFERENCES `account` (`account_id`) ON DELETE CASCADE
+  CONSTRAINT `parking_lot_ibfk_1` FOREIGN KEY (`owner_id`) REFERENCES `account` (`account_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `parkinglot`
+-- Dumping data for table `parking_lot`
 --
 
-LOCK TABLES `parkinglot` WRITE;
-/*!40000 ALTER TABLE `parkinglot` DISABLE KEYS */;
-INSERT INTO `parkinglot` VALUES (2,3,'Bãi xe AVIS HN','5 P. Trần Vỹ, Mai Dịch, Cầu Giấy, Hà Nội, Việt Nam',60,10,10000.00,'Bãi xe AVIS HN','2024-11-24 20:43:38'),(3,3,'Bãi Đỗ Xe Thông Minh Hóa Vũ','47 Ng. 66 Đ. Hồ Tùng Mậu, Mai Dịch, Cầu Giấy, Hà Nội, Việt Nam',100,70,8000.00,'Bãi Đỗ Xe Thông Minh Hóa Vũ','2024-11-24 20:46:22');
-/*!40000 ALTER TABLE `parkinglot` ENABLE KEYS */;
+LOCK TABLES `parking_lot` WRITE;
+/*!40000 ALTER TABLE `parking_lot` DISABLE KEYS */;
+INSERT INTO `parking_lot` VALUES (1,3,'Bãi xe AVIS HN','5 P. Trần Vỹ, Mai Dịch, Cầu Giấy, Hà Nội, Việt Nam',60,10,10000,'Bãi xe AVIS HN','2024-11-24 20:43:38'),(2,3,'Bãi Đỗ Xe Thông Minh Hóa Vũ','47 Ng. 66 Đ. Hồ Tùng Mậu, Mai Dịch, Cầu Giấy, Hà Nội, Việt Nam',100,70,8000,'Bãi Đỗ Xe Thông Minh Hóa Vũ','2024-11-24 20:46:22');
+/*!40000 ALTER TABLE `parking_lot` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -57,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-24 21:00:28
+-- Dump completed on 2024-11-25 17:45:03
