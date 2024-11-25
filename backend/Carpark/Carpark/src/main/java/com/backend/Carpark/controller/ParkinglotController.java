@@ -1,6 +1,5 @@
 package com.backend.Carpark.controller;
 
-
 import com.backend.Carpark.model.Parkinglot;
 import com.backend.Carpark.service.ParkinglotService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +43,7 @@ public class ParkinglotController {
     public ResponseEntity<Parkinglot> updateParkinglot(@PathVariable Integer pid, @RequestBody Parkinglot parkinglot) {
         Optional<Parkinglot> existingParkinglot = parkinglotService.getParkinglotById(pid);
         if (existingParkinglot.isPresent()) {
-            parkinglot.setPid(pid);  // Ensure the user ID is set to the path variable ID
+            parkinglot.setPid(pid); // Ensure the user ID is set to the path variable ID
             Parkinglot updatedParkinglot = parkinglotService.saveParkinglot(parkinglot);
             return new ResponseEntity<>(updatedParkinglot, HttpStatus.OK);
         } else {

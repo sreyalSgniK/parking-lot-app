@@ -22,7 +22,7 @@ const ParkingLotInformationForm = () => {
 
   const handleBookSlot = () => {
     // Logic for booking a parking slot
-    alert("Booking feature coming soon!");
+    navigate(`/parking-lot/${id}/book`);
   };
 
   const handleLeaveReview = () => {

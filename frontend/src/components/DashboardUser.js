@@ -3,35 +3,31 @@ import { Link } from "react-router-dom"; // Use this for navigation
 import axios from "axios";
 
 const DashboardUser = () => {
-  // State to store parking lot data
   const [parkingLots, setParkingLots] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
   // Fetch parking lot data when the component mounts
   useEffect(() => {
-    // Fetch parking lot data from the backend
     axios
       .get("http://localhost:8080/parkinglots")
       .then((response) => {
-        setParkingLots(response.data); // Set the parking lots in state
+        setParkingLots(response.data);
       })
       .catch((error) => {
         console.error("Error fetching parking lots:", error);
       });
   }, []);
 
-  // Handle search input change
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
 
-  // Handle search button click
   const handleSearch = () => {
     if (searchQuery) {
       axios
         .get(`http://localhost:8080/parking-lots/search?address=${searchQuery}`)
         .then((response) => {
-          setParkingLots(response.data); // Update parking lots based on search
+          setParkingLots(response.data);
         })
         .catch((error) => {
           console.error("Error fetching parking lots:", error);
@@ -39,18 +35,14 @@ const DashboardUser = () => {
     }
   };
 
-  // Handle logout
   const handleLogout = () => {
-    // Clear user data from localStorage
     localStorage.removeItem("user");
-    // Redirect to login page (you can use react-router's useNavigate if needed)
     window.location.href = "/";
   };
 
   return (
     <div className="dashboard-page">
       <div className="dashboard-container">
-        {/* Navigation Bar */}
         <nav className="navbar">
           <div className="navbar-left">
             <h2>Parking App</h2>
@@ -66,6 +58,9 @@ const DashboardUser = () => {
             <Link to="/profile">
               <button>Profile</button>
             </Link>
+            <Link to="/my-bookings">
+              <button>My Bookings</button>
+            </Link>
             <button onClick={handleLogout}>Logout</button>
           </div>
         </nav>
@@ -74,10 +69,9 @@ const DashboardUser = () => {
 
         <p>
           Here you can find all available parking lots in the system or use the
-          search bar to find nearby parking lots
+          search bar to find nearby parking lots.
         </p>
 
-        {/* Parking Lots Grid */}
         <div className="parking-lots-grid">
           {parkingLots.length === 0 ? (
             <p>No parking lots available.</p>

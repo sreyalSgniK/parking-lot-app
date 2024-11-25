@@ -10,6 +10,9 @@ import Profile from "./components/Profile";
 import CreateParkingLot from "./components/CreateParkingLot";
 import ParkingLotInformationOwnerForm from "./components/ParkingLotInformationOwnerForm";
 import UpdateParkingLot from "./components/UpdateParkingLot";
+import CreateBookingForm from "./components/CreateBookingForm";
+import MyBookings from "./components/MyBookings";
+import ManageBookings from "./components/ManageBookings";
 // import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
@@ -28,10 +31,12 @@ function App() {
             // </ProtectedRoute>
           }
         />
+        <Route path="/my-bookings" element={<MyBookings />} />
         <Route
           path="/parking-lot/:id"
           element={<ParkingLotInformationForm />}
         />
+        <Route path="/parking-lot/:id/book" element={<CreateBookingForm />} />
         <Route path="/profile" element={<Profile />} />
         <Route
           path="/dashboard/owner"
@@ -47,6 +52,7 @@ function App() {
           element={<ParkingLotInformationOwnerForm />}
         />
         <Route path="/parking-lot/:id/update" element={<UpdateParkingLot />} />
+        <Route path="/parking-lot/:id/bookings" element={<ManageBookings />} />
         {/* <Routes>
           <Route
             path="/parking-lot/:id/update"

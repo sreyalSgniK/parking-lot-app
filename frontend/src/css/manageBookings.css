@@ -1,0 +1,38 @@
+.manage-bookings-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .bookings-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .booking-card {
+    background-color: #f4f4f4;
+    border-radius: 5px;
+    padding: 15px;
+    width: 250px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .booking-card p {
+    margin: 5px 0;
+  }
+  
+  .btn-back {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .btn-back:hover {
+    background-color: #0056b3;
+  }
+  

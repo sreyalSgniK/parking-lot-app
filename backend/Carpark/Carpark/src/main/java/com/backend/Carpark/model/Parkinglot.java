@@ -9,6 +9,8 @@ import jakarta.persistence.Table;
 
 import java.math.BigDecimal;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 @Entity
 @Table(name = "parking_lot")
 public class Parkinglot {
@@ -32,7 +34,9 @@ public class Parkinglot {
     @Column(name = "description")
     private String description;
     @Column(name = "created_at")
+    @CreationTimestamp
     private String created_at;
+    
 
     // Getters and setters
     public Integer getId() {

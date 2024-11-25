@@ -1,5 +1,7 @@
 package com.backend.Carpark.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -21,6 +23,7 @@ public class Review {
     @Column(name = "comment")
     private String comment;
     @Column(name = "created_at")
+    @CreationTimestamp
     private String created_at;
 
     public Integer getRid() {

@@ -1,5 +1,7 @@
 package com.backend.Carpark.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,6 +28,7 @@ public class Account {
     @Column(name = "role")
     private String role;
     @Column(name = "created_at")
+    @CreationTimestamp
     private String created_at;
 
     // Getters and setters
