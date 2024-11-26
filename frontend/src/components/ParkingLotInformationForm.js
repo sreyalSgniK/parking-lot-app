@@ -21,12 +21,10 @@ const ParkingLotInformationForm = () => {
   }, [id]);
 
   const handleBookSlot = () => {
-    // Logic for booking a parking slot
     navigate(`/parking-lot/${id}/book`);
   };
 
   const handleLeaveReview = () => {
-    // Redirect to the leave review page (you can create a route for reviews)
     navigate(`/parking-lot/${id}/review`);
   };
 
@@ -69,13 +67,19 @@ const ParkingLotInformationForm = () => {
             Back to Dashboard
           </button>
         </div>
-        {/* Add Map */}
+
+        {/* Embed Google Map */}
         <div className="map-container">
-          <img
-            src="/Hoa-Vu.png" // Replace with your map image path
-            alt="Map"
-            className="map-image"
-          />
+          <iframe
+            src={parkingLot.mapEmbedUrl} // Dynamically insert the map URL
+            width="300"
+            height="225"
+            style={{ border: 0 }}
+            allowFullScreen=""
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="Google Map"
+          ></iframe>
         </div>
       </div>
     </div>

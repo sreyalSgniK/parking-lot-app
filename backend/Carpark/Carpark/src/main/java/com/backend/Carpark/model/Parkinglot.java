@@ -36,7 +36,9 @@ public class Parkinglot {
     @Column(name = "created_at")
     @CreationTimestamp
     private String created_at;
-    
+
+    @Column(name = "map_embed_url")
+    private String mapEmbedUrl;
 
     // Getters and setters
     public Integer getId() {
@@ -103,4 +105,12 @@ public class Parkinglot {
         this.description = description;
     }
 
+    // Getters and setters
+    public String getMapEmbedUrl() {
+        return mapEmbedUrl;
+    }
+
+    public void setMapEmbedUrl(String mapEmbedUrl) {
+        this.mapEmbedUrl = mapEmbedUrl;
+    }
 }

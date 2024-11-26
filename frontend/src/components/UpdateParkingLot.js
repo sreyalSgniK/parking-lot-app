@@ -2,22 +2,23 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getUserFromCookie } from "./Profile";
+import "./../css/updateParkingLot.css";
 
 const UpdateParkingLot = () => {
-  const { id } = useParams(); // Get parking lot ID from the URL
-  const [parkingLot, setParkingLot] = useState(null); // State to store parking lot details
+  const { id } = useParams();
+  const [parkingLot, setParkingLot] = useState(null);
   const [pname, setPname] = useState("");
   const [location, setLocation] = useState("");
   const [total, setTotal] = useState("");
   const [available, setAvailable] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
+  const [mapEmbedUrl, setMapEmbedUrl] = useState(""); // New state for map embed URL
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const ownerId = getUserFromCookie().id;
 
-  // Fetch existing parking lot details
   useEffect(() => {
     axios
       .get(`http://localhost:8080/parkinglots/${id}`)
@@ -30,6 +31,7 @@ const UpdateParkingLot = () => {
         setAvailable(data.available);
         setPrice(data.price);
         setDescription(data.description);
+        setMapEmbedUrl(data.map_embed_url); // Prefill map embed URL
       })
       .catch((error) => {
         console.error("Error fetching parking lot details:", error);
@@ -40,25 +42,31 @@ const UpdateParkingLot = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validate inputs
-    if (!pname || !location || !total || !available || !price || !description) {
+    if (
+      !pname ||
+      !location ||
+      !total ||
+      !available ||
+      !price ||
+      !description ||
+      !mapEmbedUrl
+    ) {
       setError("Please fill in all fields.");
       return;
     }
 
-    // Send updated data to the backend
     axios
       .put(`http://localhost:8080/parkinglots/${id}`, {
         pname,
         location,
-        total: parseInt(total, 10), // Ensure it's an integer
+        total: parseInt(total, 10),
         available: parseInt(available, 10),
-        price: parseFloat(price), // Ensure it's a float
+        price: parseFloat(price),
         description,
+        mapEmbedUrl, // Include the map embed URL in the update
         ownerId,
       })
       .then(() => {
-        // Redirect to the owner dashboard
         navigate("/dashboard/owner");
       })
       .catch((error) => {
@@ -67,15 +75,33 @@ const UpdateParkingLot = () => {
       });
   };
 
+  const handleDelete = () => {
+    if (window.confirm("Are you sure you want to delete this parking lot?")) {
+      axios
+        .delete(`http://localhost:8080/parkinglots/${id}`)
+        .then(() => {
+          navigate("/dashboard/owner");
+        })
+        .catch((error) => {
+          console.error("Error deleting parking lot:", error);
+          setError("Error deleting parking lot, please try again.");
+        });
+    }
+  };
+
+  const handleCancel = () => {
+    navigate("/dashboard/owner");
+  };
+
   if (!parkingLot) {
     return <p>Loading...</p>;
   }
 
   return (
-    <div className="update-parking-lot-form">
+    <div className="update-parking-lot-container">
       <h2>Update Parking Lot</h2>
       {error && <p className="error-message">{error}</p>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="update-parking-lot-form">
         <div>
           <label>Parking Lot Name:</label>
           <input
@@ -130,7 +156,27 @@ const UpdateParkingLot = () => {
             required
           ></textarea>
         </div>
-        <button type="submit">Update Parking Lot</button>
+        <div>
+          <label>Map Embed URL:</label>
+          <input
+            type="text"
+            value={mapEmbedUrl}
+            onChange={(e) => setMapEmbedUrl(e.target.value)}
+            required
+            placeholder="Enter Google Map embed URL"
+          />
+        </div>
+        <div className="form-actions">
+          <button type="submit" className="btn-update">
+            Update Parking Lot
+          </button>
+          <button type="button" className="btn-delete" onClick={handleDelete}>
+            Delete Parking Lot
+          </button>
+          <button type="button" className="btn-cancel" onClick={handleCancel}>
+            Cancel
+          </button>
+        </div>
       </form>
     </div>
   );

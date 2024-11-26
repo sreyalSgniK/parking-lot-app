@@ -1,27 +1,56 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./../css/manageBookings.css"; // Import custom CSS
+import "./../css/manageBookings.css";
 
 const ManageBookings = () => {
-  const { id } = useParams(); // Get the parking lot ID from the URL
+  const { id } = useParams(); // Parking lot ID from URL
   const [bookings, setBookings] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch all bookings for the parking lot by its ID
-    axios
-      .get(`http://localhost:8080/bookings/parking-lot/${id}`)
-      .then((response) => {
-        setBookings(response.data);
-      })
-      .catch((error) => {
+    const fetchBookingsWithUserNames = async () => {
+      try {
+        // Fetch all bookings for the parking lot
+        const bookingsResponse = await axios.get(
+          `http://localhost:8080/bookings/parking-lot/${id}/bookings`
+        );
+        const bookingsData = bookingsResponse.data;
+
+        // Fetch user names for each booking
+        const bookingsWithUserNames = await Promise.all(
+          bookingsData.map(async (booking) => {
+            try {
+              const userResponse = await axios.get(
+                `http://localhost:8080/accounts/${booking.userId}`
+              );
+
+              // Extract username from the user API response
+              return {
+                ...booking,
+                userName: userResponse.data.username || "Unknown User",
+              };
+            } catch (error) {
+              console.error(
+                `Error fetching user data for userId ${booking.userId}:`,
+                error
+              );
+              return { ...booking, userName: "Unknown User" };
+            }
+          })
+        );
+
+        setBookings(bookingsWithUserNames);
+      } catch (error) {
         console.error("Error fetching bookings:", error);
-      });
+      }
+    };
+
+    fetchBookingsWithUserNames();
   }, [id]);
 
   const handleBackToParkingLot = () => {
-    navigate(`/parking-lot/${id}`);
+    navigate(`/owner/parking-lot/${id}`);
   };
 
   return (
@@ -41,7 +70,7 @@ const ManageBookings = () => {
                 <strong>Booking ID:</strong> {booking.bid}
               </p>
               <p>
-                <strong>User:</strong> {booking.user.name}
+                <strong>User:</strong> {booking.userName}
               </p>
               <p>
                 <strong>Start Time:</strong> {booking.startTime}

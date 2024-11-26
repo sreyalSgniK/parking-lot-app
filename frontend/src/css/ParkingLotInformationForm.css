@@ -102,13 +102,11 @@
   
   .map-container {
     margin-top: 20px;
+    text-align: center;
   }
   
-  .map-image {
-    width: 80%; /* Adjust this to your desired size */
-    max-width: 400px; /* Optional: Set a max width */
-    margin: 20px auto; /* Center the image and add spacing */
-    display: block; /* Ensures the image centers when using margin auto */
-    border-radius: 8px; /* Optional: Adds rounded corners */
+  .map-container iframe {
+    max-width: 100%;
+    border-radius: 8px;
   }
   

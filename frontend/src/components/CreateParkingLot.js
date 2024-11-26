@@ -1,42 +1,50 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { getUserFromCookie } from "./Profile";
+import { useNavigate } from "react-router-dom"; // Add the navigate hook
+import "./../css/createParkingLot.css"; // Import the CSS
 
 const CreateParkingLot = () => {
-  const [pname, setPname] = useState(""); // Parking lot name
-  const [location, setLocation] = useState(""); // Parking lot location
-  const [total, setTotal] = useState(""); // Total slots
-  const [available, setAvailable] = useState(""); // Available slots
-  const [price, setPrice] = useState(""); // Price per hour
-  const [description, setDescription] = useState(""); // Description
-  const [error, setError] = useState(""); // Error state for form submission
+  const [pname, setPname] = useState("");
+  const [location, setLocation] = useState("");
+  const [total, setTotal] = useState("");
+  const [available, setAvailable] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+  const [mapEmbedUrl, setMapEmbedUrl] = useState(""); // New state for the map embed URL
+  const [error, setError] = useState("");
 
-  // Get the logged-in owner's ID from localStorage
-  const ownerId = getUserFromCookie().id; // Assuming user ID is saved in localStorage
-  //   console.log(ownerId);
+  const ownerId = getUserFromCookie().id;
+  const navigate = useNavigate(); // Initialize navigate
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validate inputs
-    if (!pname || !location || !total || !available || !price || !description) {
+    if (
+      !pname ||
+      !location ||
+      !total ||
+      !available ||
+      !price ||
+      !description ||
+      !mapEmbedUrl
+    ) {
       setError("Please provide all the details.");
       return;
     }
 
-    // Submit the new parking lot to the backend
     axios
       .post("http://localhost:8080/parkinglots", {
         pname,
         location,
         total,
         available,
-        price: parseFloat(price), // Convert price to a number
+        price: parseFloat(price),
         description,
-        ownerId, // Attach the ownerId
+        mapEmbedUrl, // Include the map embed URL in the request body
+        ownerId,
       })
       .then((response) => {
-        // Redirect to the owner dashboard after successful submission
         window.location.href = "/dashboard/owner";
       })
       .catch((error) => {
@@ -45,11 +53,15 @@ const CreateParkingLot = () => {
       });
   };
 
+  const handleCancel = () => {
+    // Navigate to dashboard or a relevant page
+    navigate("/dashboard/owner");
+  };
+
   return (
     <div className="create-parking-lot-form">
       <h2>Create New Parking Lot</h2>
-      {error && <p className="error-message">{error}</p>}{" "}
-      {/* Display error message */}
+      {error && <p className="error-message">{error}</p>}
       <form onSubmit={handleSubmit}>
         <div>
           <label>Parking Lot Name:</label>
@@ -111,7 +123,20 @@ const CreateParkingLot = () => {
             placeholder="Enter parking lot description"
           ></textarea>
         </div>
+        <div>
+          <label>Map Embed URL:</label>
+          <input
+            type="text"
+            value={mapEmbedUrl}
+            onChange={(e) => setMapEmbedUrl(e.target.value)}
+            required
+            placeholder="Enter Google Map embed URL"
+          />
+        </div>
         <button type="submit">Create Parking Lot</button>
+        <button type="button" onClick={handleCancel} className="btn-cancel">
+          Cancel
+        </button>
       </form>
     </div>
   );
